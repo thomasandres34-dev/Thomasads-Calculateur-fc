@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Calculateur FC — The Standard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #080808;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Header */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.title {
+  font-size: 38px;
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.subtitle {
+  font-size: 12px;
+  font-weight: 300;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* Input card */
+.input-card {
+  background: #141414;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.input-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.input-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+input[type="number"] {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  width: 90px;
+  padding: 8px 6px;
+  outline: none;
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+input[type="number"]:focus { border-color: #555; }
+.input-unit {
+  font-size: 14px;
+  font-weight: 300;
+  color: #555;
+}
+
+/* FC Max */
+.fcmax-card {
+  background: #111;
+  border: 1px solid #222;
+  border-top: 2px solid #fff;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fcmax-left .fcmax-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #666;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.fcmax-left .fcmax-formula {
+  font-size: 10px;
+  font-weight: 300;
+  color: #444;
+}
+.fcmax-right {
+  text-align: right;
+}
+.fcmax-value {
+  font-size: 44px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.fcmax-unit {
+  font-size: 11px;
+  font-weight: 300;
+  color: #555;
+  margin-top: 2px;
+}
+
+
+
+/* Z2 highlight note */
+.z2-note {
+  background: #0a1a0a;
+  border: 1px solid #1a3a1a;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.z2-icon { font-size: 18px; line-height: 1.4; }
+.z2-text p {
+  font-size: 12px;
+  font-weight: 300;
+  color: #aaa;
+  line-height: 1.6;
+}
+.z2-text strong { color: #36D399; font-weight: 600; }
+
+/* Zone cards */
+.zones-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: #555;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.zone-card {
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  position: relative;
+  overflow: hidden;
+}
+.zone-left-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 10px 0 0 10px;
+}
+.zone-badge {
+  font-size: 13px;
+  font-weight: 900;
+  min-width: 28px;
+  text-align: center;
+}
+.zone-info { flex: 1; }
+.zone-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+.zone-desc {
+  font-size: 10px;
+  font-weight: 300;
+  color: #666;
+  line-height: 1.4;
+}
+.zone-range { text-align: right; white-space: nowrap; }
+.zone-bpm {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+.zone-unit {
+  font-size: 9px;
+  font-weight: 300;
+  color: #555;
+  margin-top: 2px;
+}
+.zone-pct {
+  font-size: 9px;
+  font-weight: 300;
+  color: #444;
+  margin-top: 2px;
+}
+
+/* Formula note */
+.formula-note {
+  border-left: 2px solid #222;
+  padding: 10px 14px;
+  margin-top: 16px;
+}
+.formula-note p {
+  font-size: 10px;
+  font-weight: 300;
+  color: #444;
+  line-height: 1.7;
+}
+.formula-note strong { color: #666; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="eyebrow">The Standard · Outil</div>
+  <div class="title">Zones<br>cardiaques</div>
+  <p class="subtitle">Entre ton âge pour calculer tes 5 zones FC</p>
+
+  <!-- Input -->
+  <div class="input-card">
+    <div class="input-label">Ton âge</div>
+    <div class="input-right">
+      <input type="number" id="age" min="15" max="80" value="25" inputmode="numeric" oninput="calculate()">
+      <span class="input-unit">ans</span>
+    </div>
+  </div>
+
+  <!-- FC Max -->
+  <div class="fcmax-card">
+    <div class="fcmax-left">
+      <div class="fcmax-label">FC Maximum</div>
+      <div class="fcmax-formula">220 − ton âge</div>
+    </div>
+    <div class="fcmax-right">
+      <div class="fcmax-value" id="fcmax-value">195</div>
+      <div class="fcmax-unit">bpm</div>
+    </div>
+  </div>
+
+  <!-- Z2 note -->
+  <div class="z2-note">
+    <div class="z2-icon">◎</div>
+    <div class="z2-text">
+      <p><strong>Zone 2 = le fondement.</strong> 80% de ton volume de course doit être ici. Test : tu dois pouvoir tenir une conversation complète. Si tu souffles → tu vas trop vite.</p>
+    </div>
+  </div>
+
+  <!-- Zones -->
+  <div class="zones-title">Tes 5 zones</div>
+  <div id="zones-container"></div>
+
+  <div class="formula-note">
+    <p><strong>Formule :</strong> FC max = 220 − âge (Haskell & Fox)<br>
+    Les zones sont calculées en pourcentage de ta FC maximale estimée.</p>
+  </div>
+
+</div>
+
+<script>
+const ZONES = [
+  { num:'Z1', name:'Récupération', min:0.50, max:0.60, desc:'Très facile · conversation normale · retour au calme',        color:'#4A9EFF' },
+  { num:'Z2', name:'Endurance',    min:0.60, max:0.70, desc:'Facile · parler sans effort · construit le moteur aérobie',    color:'#36D399' },
+  { num:'Z3', name:'Tempo',        min:0.70, max:0.80, desc:'Modéré · phrases courtes · seuil aérobie',                    color:'#F5C842' },
+  { num:'Z4', name:'Seuil',        min:0.80, max:0.90, desc:'Difficile · quelques mots seulement · repousse les limites',  color:'#FF8C42' },
+  { num:'Z5', name:'Maximum',      min:0.90, max:1.00, desc:'Impossible de parler · sprints · puissance maximale',         color:'#FF4444' },
+];
+
+function calculate() {
+  const age = parseInt(document.getElementById('age').value);
+  if (!age || age < 15 || age > 80) return;
+  const fcmax = 220 - age;
+  document.getElementById('fcmax-value').textContent = fcmax;
+
+  // Zone cards
+  const cont = document.getElementById('zones-container');
+  cont.innerHTML = '';
+  ZONES.forEach((z, i) => {
+    const low  = Math.round(fcmax * z.min);
+    const high = Math.round(fcmax * z.max);
+    const isZ2 = i === 1;
+    const card = document.createElement('div');
+    card.className = 'zone-card';
+    if (isZ2) {
+      card.style.background = '#0d1a0d';
+      card.style.borderColor = '#1a3a1a';
+    }
+    card.innerHTML = `
+      <div class="zone-left-bar" style="background:${z.color};"></div>
+      <div class="zone-badge" style="color:${z.color};">${z.num}</div>
+      <div class="zone-info">
+        <div class="zone-name">${z.name}</div>
+        <div class="zone-desc">${z.desc}</div>
+      </div>
+      <div class="zone-range">
+        <div class="zone-bpm" style="color:${z.color};">${low}–${high}</div>
+        <div class="zone-unit">bpm</div>
+        <div class="zone-pct">${Math.round(z.min*100)}–${Math.round(z.max*100)}%</div>
+      </div>
+    `;
+    cont.appendChild(card);
+  });
+}
+
+calculate();
+</script>
+</body>
+</html>
